@@ -1,0 +1,1 @@
+COHERE_API_KEY='k9UV95uPtYxrklUp13NowufdqwmxWb9zvGvs4c23'
