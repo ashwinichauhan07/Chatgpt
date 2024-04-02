@@ -108,7 +108,7 @@ pyasn1==0.5.1
 pyasn1-modules==0.3.0
 pycparser==2.21
 pycryptodomex==3.20.0
-pinecone
+pinecone==1.21.2
 mypy-extensions==1.0.0
 numpy==1.26.3
 openai==1.7.2
