@@ -3,7 +3,7 @@ aiosignal==1.3.1
 altair==5.2.0
 annotated-types==0.6.0
 anyio==4.2.0
-<<<<<<< HEAD
+
 assemblyai==0.20.2
 attrs==23.2.0
 backoff==2.2.1
@@ -14,32 +14,32 @@ bs4==0.0.1
 cachetools==5.3.2
 certifi==2023.11.17
 cffi==1.16.0
-=======
+
 attrs==23.2.0
 backoff==2.2.1
 blinker==1.7.0
 cachetools==5.3.2
 certifi==2023.11.17
->>>>>>> facccae66ed0241c2782eed4e3f3c8842aaefdd1
+
 charset-normalizer==3.3.2
 click==8.1.7
 cohere==4.44
 colorama==0.4.6
-<<<<<<< HEAD
+
 curl-cffi==0.5.10
 dataclasses-json==0.6.3
 distro==1.9.0
 duckduckgo_search==4.2
-=======
+
 dataclasses-json==0.6.3
 distro==1.9.0
 fastapi==0.109.0
->>>>>>> facccae66ed0241c2782eed4e3f3c8842aaefdd1
+
 fastavro==1.9.3
 frozenlist==1.4.1
 gitdb==4.0.11
 GitPython==3.1.41
-<<<<<<< HEAD
+
 google-api-core==2.15.0
 google-auth==2.26.2
 google-cloud-aiplatform==1.38.1
@@ -58,13 +58,13 @@ grpcio-status==1.60.0
 h11==0.14.0
 httpcore==1.0.2
 httpx==0.26.0
-=======
+
 greenlet==3.0.3
 h11==0.14.0
 httpcore==1.0.2
 httpx==0.26.0
 httpx-sse==0.4.0
->>>>>>> facccae66ed0241c2782eed4e3f3c8842aaefdd1
+
 idna==3.6
 importlib-metadata==6.11.0
 Jinja2==3.1.3
@@ -73,27 +73,27 @@ jsonpointer==2.4
 jsonschema==4.21.0
 jsonschema-specifications==2023.12.1
 langchain==0.1.0
-<<<<<<< HEAD
+
 langchain-community==0.0.12
 langchain-core==0.1.11
 langchain-google-vertexai==0.0.1.post1
 langchain-openai==0.0.2.post1
 langsmith==0.0.80
 lxml==5.1.0
-=======
+
 langchain-cli==0.0.20
 langchain-community==0.0.13
 langchain-core==0.1.10
 langchain-openai==0.0.2.post1
 langserve==0.0.39
 langsmith==0.0.80
->>>>>>> facccae66ed0241c2782eed4e3f3c8842aaefdd1
+
 markdown-it-py==3.0.0
 MarkupSafe==2.1.3
 marshmallow==3.20.2
 mdurl==0.1.2
 multidict==6.0.4
-<<<<<<< HEAD
+
 mutagen==1.47.0
 mypy-extensions==1.0.0
 numpy==1.26.3
@@ -108,7 +108,7 @@ pyasn1==0.5.1
 pyasn1-modules==0.3.0
 pycparser==2.21
 pycryptodomex==3.20.0
-=======
+
 mypy-extensions==1.0.0
 numpy==1.26.3
 openai==1.7.2
@@ -118,7 +118,7 @@ pandas==2.1.4
 pillow==10.2.0
 protobuf==4.25.2
 pyarrow==14.0.2
->>>>>>> facccae66ed0241c2782eed4e3f3c8842aaefdd1
+
 pydantic==2.5.3
 pydantic_core==2.14.6
 pydeck==0.8.1b0
@@ -133,7 +133,7 @@ regex==2023.12.25
 requests==2.31.0
 rich==13.7.0
 rpds-py==0.17.1
-<<<<<<< HEAD
+
 rsa==4.9
 setuptools==69.0.3
 shapely==2.0.2
@@ -142,7 +142,7 @@ smmap==5.0.1
 sniffio==1.3.0
 soupsieve==2.5
 SQLAlchemy==2.0.25
-=======
+
 shellingham==1.5.4
 six==1.16.0
 smmap==5.0.1
@@ -150,39 +150,39 @@ sniffio==1.3.0
 SQLAlchemy==2.0.25
 sse-starlette==1.8.2
 starlette==0.35.1
->>>>>>> facccae66ed0241c2782eed4e3f3c8842aaefdd1
+
 streamlit==1.30.0
 tenacity==8.2.3
 tiktoken==0.5.2
 toml==0.10.2
-<<<<<<< HEAD
+
 toolz==0.12.0
 tornado==6.4
 tqdm==4.66.1
 types-protobuf==4.24.0.20240106
 types-requests==2.31.0.20240106
-=======
+
 tomlkit==0.12.3
 toolz==0.12.0
 tornado==6.4
 tqdm==4.66.1
 typer==0.9.0
->>>>>>> facccae66ed0241c2782eed4e3f3c8842aaefdd1
+
 typing-inspect==0.9.0
 typing_extensions==4.9.0
 tzdata==2023.4
 tzlocal==5.2
 urllib3==2.1.0
-<<<<<<< HEAD
+
 validators==0.22.0
 watchdog==3.0.0
 websockets==12.0
 yarl==1.9.4
 yt-dlp==2023.12.30
-=======
+
 uvicorn==0.23.2
 validators==0.22.0
 watchdog==3.0.0
 yarl==1.9.4
->>>>>>> facccae66ed0241c2782eed4e3f3c8842aaefdd1
+
 zipp==3.17.0
