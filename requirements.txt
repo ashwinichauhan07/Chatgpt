@@ -83,7 +83,7 @@ lxml==5.1.0
 
 langchain-cli==0.0.20
 
-langchain-core==0.1.10
+
 langchain-openai==0.0.2.post1
 langserve==0.0.39
 langsmith==0.0.80
