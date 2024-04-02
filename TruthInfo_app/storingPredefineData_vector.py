@@ -155,6 +155,6 @@ def crawl_website(start_url, session, max_depth=5):
 
 # Start the crawl
 if __name__ == "__main__":
-    starting_url = 'https://sunnah.com/malik/60'
+    starting_url = 'https://sunnah.com/'
     with requests.Session() as session:
         crawl_website(starting_url, session)
