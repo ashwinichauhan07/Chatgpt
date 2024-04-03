@@ -32,17 +32,14 @@ def encode_answers_safe(models, answers):
 
 def compute_similarities(database_answers, openai_answers):
     # Generate embeddings for all answers
-    
+    # print(openai_answers)
+    # print(database_answers)
     try:
         # Safely encode 'database_answers'
         db_embeddings = encode_answers_safe(models, database_answers)
-        
         # Safely encode 'openai_answers'
         openai_embeddings = encode_answers_safe(models, openai_answers)
-        
-        # Proceed with computing similarities or further processing
-        # Example: Compare embeddings, find matches, etc.
-        
+
     except ValueError as e:
         print(f"Error: {e}")
 
@@ -57,14 +54,13 @@ def compute_similarities(database_answers, openai_answers):
             cosine_similarity = 1 - scipy.spatial.distance.cosine(db_embedding, openai_embedding)
             similarities.append(cosine_similarity)
         similarity_matrix.append(similarities)
-    
+        # print(similarity_matrix)
     # Display answers with their similarity scores
     data_rows = []
 
     for db_index, db_answer in enumerate(database_answers):
         for openai_index, openai_answer in enumerate(openai_answers):
             similarity_score = similarity_matrix[db_index][openai_index]
-
         # Add a row for each comparison
             if similarity_score > 0.60:
                 # Add a row for each comparison with similarity score greater than 0.50
@@ -73,14 +69,11 @@ def compute_similarities(database_answers, openai_answers):
                     "OpenAI Answer": f"Answer {openai_index + 1}: {openai_answer}",
                     "Similarity Score": similarity_score
                 })
-
-# Convert the list of rows to a DataFrame
-    if data_rows:
-        df = pd.DataFrame(data_rows)
-        # Display the DataFrame
-        st.table(df)
-    else:
-        print("No matches were found.")
+                print("answers are similer")
+                return similarity_score
+            else:
+                print("No matches were found.")
+                return
 
 # Display the DataFrame using st.table or st.dataframe
     # st.table(df)
