@@ -96,6 +96,7 @@ multidict==6.0.4
 
 mutagen==1.47.0
 mypy-extensions==1.0.0
+mysql.connector
 numpy==1.26.3
 openai==1.7.2
 packaging==23.2
