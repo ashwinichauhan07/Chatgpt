@@ -85,8 +85,13 @@ def update_qa(a_id, comment):
             print("MySQL connection is closed")
 
 
+
+
 def similarity_search(user_query):
     results = []
+    connection = None  # Initialize connection to None
+    db_cursor = None  # Initialize cursor to None
+    
     try:
         connection = mysql.connector.connect(
             host='localhost',
@@ -94,6 +99,7 @@ def similarity_search(user_query):
             user='root',
             password='password'
         )
+        
         if connection.is_connected():
             db_cursor = connection.cursor()
             query = """
@@ -103,16 +109,20 @@ def similarity_search(user_query):
                         WHERE MATCH(q.question) AGAINST(%s IN NATURAL LANGUAGE MODE)
                     """
             db_cursor.execute(query, (user_query,))
-            results = db_cursor.fetchall() 
-            # connection.commit()  # This is typically not needed for SELECT queries
+            results = db_cursor.fetchall()
             print("Similarity search executed successfully!")
     except mysql.connector.Error as e:
         print(f"Error: {e}")
     finally:
-        if connection and connection.is_connected():
+        # Check if cursor was created and is not None
+        if db_cursor is not None:
             db_cursor.close()
+        
+        # Check if connection was successfully established and is connected
+        if connection and connection.is_connected():
             connection.close()
             print("MySQL connection is closed")
     
     return results
+
 
