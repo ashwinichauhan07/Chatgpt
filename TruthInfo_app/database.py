@@ -16,13 +16,17 @@ def insert_qa(question, answers,document_ids):
             question_id = db_cursor.lastrowid  # Retrieve the ID of the inserted question
             # print(question_id)
             # Insert answers into the answers table, referencing the question ID
-            answer_query = "INSERT INTO answers (q_id, answer) VALUES (%s, %s)"
-            for answer in answers:
-                db_cursor.execute(answer_query, (question_id, answer))
+            # answer_query = "INSERT INTO answers (q_id, answer) VALUES (%s, %s)"
+            # for answer in answers:
+            #     db_cursor.execute(answer_query, (question_id, answer))
+
+            answer_query = "INSERT INTO answers (q_id, answer, document_id) VALUES (%s, %s, %s)"
+            for answer, document_id in zip(answers, document_ids):
+                db_cursor.execute(answer_query, (question_id, answer, document_id))
             
-            query = "INSERT INTO answers (document_id) VALUES (%s)"
-            for document in document_ids:
-                db_cursor.execute(query, (document,))
+            # query = "INSERT INTO answers (document_id) VALUES (%s)"
+            # for document in document_ids:
+            #     db_cursor.execute(query, (document,))
             connection.commit()
             print("Question and answers inserted successfully.")
     except Error as e:
