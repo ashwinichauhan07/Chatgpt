@@ -4,6 +4,7 @@ from urllib.parse import urljoin, urlparse
 from sentence_transformers import SentenceTransformer
 from pinecone import Pinecone, PodSpec
 import os
+import re
 import time
 from dotenv import load_dotenv
 
@@ -70,18 +71,23 @@ def scrape_text_from_link(url, session):
 # Extract text from elements with class 'translation'
         translations = [elem.get_text() for elem in soup.find_all(class_='translation')]
         all_content.extend(translations)
-        references = [elem.get_text() for elem in soup.find_all(class_='hadith_reference')]
-        all_content.extend(references)
+        # references = [elem.get_text() for elem in soup.find_all(class_='hadith_reference')]
+        # all_content.extend(references)
 
         title=[elem.get_text() for elem in soup.find_all(class_='chapter')]
-        all_content.extend(title)
+        # all_content.extend(title)
 
 # Combine all collected content into a single string
         combined_content = ' '.join(all_content)
         print(combined_content)
 # Generate a vector from the combined content
+        MAX_CONTENT_SIZE = 1000
         vector = text_to_vector(combined_content)
-        metadata = {'url': url,'title':title}
+        if(len(combined_content)>MAX_CONTENT_SIZE):
+            content_to_store = combined_content[:MAX_CONTENT_SIZE]
+        else:
+            content_to_store = combined_content
+        metadata = {'url': url,'title':title,'content':content_to_store}
         # Insert into Pinecone (using URL as ID for simplicity)
         index.upsert(vectors=[(url, vector,metadata)])
         print(f"Inserted text vector from {url} into Pinecone.")
@@ -94,6 +100,14 @@ def scrape_text_from_link(url, session):
     # else:
     #     print(f"Failed to fetch content from {url}")
 
+
+# def is_desired_format(url):
+#     # This regex checks if the URL follows a specific pattern without a colon in the specific part
+#     pattern = r'https://sunnah\.com/([^/:]+)(/\d+)?($)'
+#     match = re.search(pattern, url)
+#     if match:
+#         print(f"Matched URL: {url}")  # Debugging output
+#         return True
 # Example of creating a document ID with embedded URL info
 def create_document_id(url):
     unique_identifier = hash(url)  # Simplified; consider a more collision-resistant approach
