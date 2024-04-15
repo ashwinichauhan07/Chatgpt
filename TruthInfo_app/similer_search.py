@@ -40,7 +40,7 @@ if st.button("Submit"):
     # search_qurey_finalvector(query_vector_list)
 
     # Query Pinecone Index
-    results = index.query(vector=query_vector_list,top_k=5,include_metadata=True)
+    results = index.query(vector=query_vector_list,top_k=5,include_metadata=True,include_values=True)
     # print(results)
 
     if not results["matches"]:
@@ -50,35 +50,45 @@ if st.button("Submit"):
         # insert_qa(question, ["I don't know."], "")
 
     else:
-        # question_id = insert_question_once(question)
+        question_id = insert_question_once(question)
         document_ids = [hit["id"] for hit in results["matches"]]
-        document_ids_str = str(document_ids)
-        text_content = index.fetch(ids=[document_ids_str])
+        
         
         metadata_list = [match.get("metadata", {}) for match in results["matches"]]
         api_key = os.getenv('OPENAI_API_KEY')
         
         # Initialize header for OpenAI API
         headers = {'Authorization': f'Bearer {api_key}', 'Content-Type': 'application/json'}
-        answers=[]
-        for idx, doc_id in enumerate(document_ids):
-            metadata = metadata_list[idx]
+
+        for idx, (doc_id, metadata) in enumerate(zip(document_ids, metadata_list)):
+            # values=results["matches"][idx]["values"] 
+            # vector_string = str(values)
+            # print(values)
+            # content=model
+            # metadata = metadata_list[idx]
+            content = metadata.get("content", "content not available")
             url = metadata.get("url", "URL not available")
             title = metadata.get("title", "Title not available")
-            # print(f"Document ID: {doc_id}, URL: {url}, Title: {title}")
-            # prompt = f"Based on the following documents: {doc_id}. What is the answer to: '{question}'?"
-            # prompt=f"Answer the users {question} using the DOCUMENT {doc_id}. If the DOCUMENT doesn’t contain the facts to answer the QUESTION return 'Dont know'."
-            prompt = f"Based on the following documents: {doc_id}."
-    
+
+            # prompts=f"Summarize the following document highlighting the main points and any unique information:\n\n{doc_id } and give the correct answer of question: {question}"
+            # prompt = f"""Based on the document {doc_id}, please provide an answer to the following question: '{question}'. Ensure your response is grounded in the document's content. If the document does not contain sufficient information to answer the question or if the topic is unrelated, please respond accordingly with 'Don't know' or 'Query is not related to the document's topic.'"""
+            # unique_summary = f"Document'{doc_id}', provides a unique and correct perspective as follows:"
+
+            # prompt = f"""{unique_summary} Based on this, please provide an answer to the question. If the document does not contain sufficient information or if the topic is unrelated, please respond with 'Don't know' or 'Query is not related to the topic.' """
+            prompt = f"Based on the following document:{doc_id,content}, answer the question: {question} "
+            
             data = {
             'model': "gpt-3.5-turbo",
+            'temperature': 0.5,
+            # 'prompt': prompt,
             'messages': [
-                {"role": "system", "content": "You are expert in islam. Give answers for question from provided document. Please ensure the information is accurate and reliable. If you cannot find answer related to the query, please respond with 'Dont know'. if Topic is not related to provided content, then say 'Query is not related to topic. ' "},
-                # {"role": "system", "content": "Answer the users QUESTION using the DOCUMENTS. Keep your answer ground in the facts of the DOCUMENT. If the DOCUMENT doesn’t contain the facts to answer the QUESTION return 'Dont know'. if Topic is not related to provided content, then say 'Query is not related to topic. ' "},
-                # {"role": "user", "content": prompt}
-                {"role": "user", "content": prompt + "\n\n" + question}
+                {"role": "system", "content": "Forgot everything previously and Provide answers to the question based solely on the provided document content without altering or manipulating the information of the document .Please analyze the provided document carefully. If the document does not contain information relevant to the question, respond with 'Don't know'. If the question is unrelated to the document's content, please say 'Query is not related to the topic'"},
+                # {"role": "system", "content": f" Analyze the document provided, paying close attention to its unique information or differing perspectives. Provide accurate answers for question based on document. Respond with 'Don't know' for insufficient information or 'Query is not related to topic' for unrelated content."},
+                # {"role": "system", "content":"Provide accurate answers for question based on document content." },
+                {"role": "user", "content":prompt }
+
             ],
-            'max_tokens': 500,
+            'max_tokens': 250,
             
             }
         
@@ -89,12 +99,18 @@ if st.button("Submit"):
             if response.status_code == 200:
                 response_data = response.json()
                 text_data = response_data.get('choices', [])[0].get('message', {}).get('content', 'No response.')
-                answers.append(text_data)
+                similarity_score=compute_similarities(ans, text_data)
+                # print("Score: ",similarity_score)
+                similarity_score = similarity_score or 0.0
+                # answers.append(text_data)
                 # print(text_data)
                 # Insert the relevant question and single answer into the database
                 # insert_answer(question_id, text_data)
                 # qadataset_store(question, text_data, document_ids)
-
+                
+                
+                if similarity_score < 0.60:
+                    insert_answer(question_id, text_data,doc_id)
                 
 
             # Display the single response
@@ -105,10 +121,10 @@ if st.button("Submit"):
             # Handle potential errors or fallback
                 st.write("Query is not releted to topic.")
 
-    similarity_score=compute_similarities(ans, answers)
-    print("Score: ",similarity_score)
-    similarity_score = similarity_score or 0.0
+    # similarity_score=compute_similarities(ans, answers)
+    # print("Score: ",similarity_score)
+    # similarity_score = similarity_score or 0.0
                 
-    if similarity_score < 0.60:
-        insert_qa(question, answers,document_ids)
+    # if similarity_score < 0.60:
+    #     insert_qa(question, answers,document_ids)
     
