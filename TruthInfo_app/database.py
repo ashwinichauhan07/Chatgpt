@@ -40,7 +40,7 @@ from mysql.connector import Error
 
 def insert_question_once(question):
     connection = mysql.connector.connect(
-            host='ubuntu@ec2-13-232-78-117.ap-south-1.compute.amazonaws.com',  # Often 'localhost'
+            host='ec2-13-232-78-117.ap-south-1.compute.amazonaws.com',  # Often 'localhost'
             database='qa_dataset',
             user='root',
             # password='password'
@@ -76,7 +76,7 @@ def insert_question_once(question):
 def insert_answer(question_id, answer,document_id):
     """Inserts an answer into the database linked to the specified question ID."""
     connection = mysql.connector.connect(
-            host='ubuntu@ec2-13-232-78-117.ap-south-1.compute.amazonaws.com',  # Often 'localhost'
+            host='ec2-13-232-78-117.ap-south-1.compute.amazonaws.com',  # Often 'localhost'
             database='qa_dataset',
             user='root',
             # password='password'
@@ -95,7 +95,7 @@ def insert_answer(question_id, answer,document_id):
 def fetch_qa():
     try:
         connection = mysql.connector.connect(
-            host='ubuntu@ec2-13-232-78-117.ap-south-1.compute.amazonaws.com',  # Often 'localhost'
+            host='ec2-13-232-78-117.ap-south-1.compute.amazonaws.com',  # Often 'localhost'
             database='qa_dataset',
             user='root',
             # password='password'
@@ -124,7 +124,7 @@ def fetch_qa():
 def update_qa(a_id, comment):
     try:
         connection = mysql.connector.connect(
-            host='ubuntu@ec2-13-232-78-117.ap-south-1.compute.amazonaws.com',  # Often 'localhost'
+            host='ec2-13-232-78-117.ap-south-1.compute.amazonaws.com',  # Often 'localhost'
             database='qa_dataset',
             user='root',
             # password='password'
@@ -147,7 +147,7 @@ def similarity_search(user_query):
     results = []
     try:
         connection = mysql.connector.connect(
-            host='ubuntu@ec2-13-232-78-117.ap-south-1.compute.amazonaws.com',  # Often 'localhost'
+            host='ec2-13-232-78-117.ap-south-1.compute.amazonaws.com',  # Often 'localhost'
             database='qa_dataset',
             user='root',
             # password='password'
