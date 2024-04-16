@@ -40,10 +40,10 @@ from mysql.connector import Error
 
 def insert_question_once(question):
     connection = mysql.connector.connect(
-            host='localhost',  # Often 'localhost'
+            host='ubuntu@ec2-13-232-78-117.ap-south-1.compute.amazonaws.com',  # Often 'localhost'
             database='qa_dataset',
             user='root',
-            password='password'
+            # password='password'
         )
         
     try:
@@ -76,10 +76,10 @@ def insert_question_once(question):
 def insert_answer(question_id, answer,document_id):
     """Inserts an answer into the database linked to the specified question ID."""
     connection = mysql.connector.connect(
-            host='localhost',  # Often 'localhost'
+            host='ubuntu@ec2-13-232-78-117.ap-south-1.compute.amazonaws.com',  # Often 'localhost'
             database='qa_dataset',
             user='root',
-            password='password'
+            # password='password'
         )
     try:
         db_cursor = connection.cursor()
@@ -95,10 +95,10 @@ def insert_answer(question_id, answer,document_id):
 def fetch_qa():
     try:
         connection = mysql.connector.connect(
-            host='localhost',
+            host='ubuntu@ec2-13-232-78-117.ap-south-1.compute.amazonaws.com',  # Often 'localhost'
             database='qa_dataset',
             user='root',
-            password='password'
+            # password='password'
         )
         if connection.is_connected():
             db_cursor = connection.cursor(dictionary=True)
@@ -124,10 +124,10 @@ def fetch_qa():
 def update_qa(a_id, comment):
     try:
         connection = mysql.connector.connect(
-            host='localhost',
+            host='ubuntu@ec2-13-232-78-117.ap-south-1.compute.amazonaws.com',  # Often 'localhost'
             database='qa_dataset',
             user='root',
-            password='password'
+            # password='password'
         )
         if connection.is_connected():
             db_cursor = connection.cursor()
@@ -147,10 +147,10 @@ def similarity_search(user_query):
     results = []
     try:
         connection = mysql.connector.connect(
-            host='localhost',
+            host='ubuntu@ec2-13-232-78-117.ap-south-1.compute.amazonaws.com',  # Often 'localhost'
             database='qa_dataset',
             user='root',
-            password='password'
+            # password='password'
         )
         if connection.is_connected():
             db_cursor = connection.cursor()
